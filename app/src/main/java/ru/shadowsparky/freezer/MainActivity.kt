@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import ru.shadowsparky.freezer.AppInfo.Companion.getApps
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
         appsRecycler.layoutManager = LinearLayoutManager(this)
         appsRecycler.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         launch(Dispatchers.IO) {
-            val apps = getApps(packageManager)
+            val apps = AppInfo.getApps(packageManager)
             originalItems = apps
             setAdapter(apps)
         }

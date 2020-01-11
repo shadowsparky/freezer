@@ -5,4 +5,7 @@
     <string name="search">Поиск</string>
     <string name="root_not_granted">Вы не выдали ROOT права</string>
     <string name="unrecognized_error">Произошла неизвестная ошибка</string>
+    <string name="all">Все</string>
+    <string name="disabled">Отключённые</string>
+    <string name="enabled">Включённые</string>
 </resources>

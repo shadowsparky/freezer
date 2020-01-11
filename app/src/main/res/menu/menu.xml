@@ -6,6 +6,31 @@
         android:id="@+id/app_bar_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <group
+        android:id="@+id/checkable_group"
+        android:checkableBehavior="single">
+        <item
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:id="@+id/all_item"
+            android:title="@string/all"
+            android:checked="true"
+            app:showAsAction="withText"/>
+
+        <item
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:id="@+id/only_enabled"
+            android:title="@string/enabled"
+            android:checked="false"
+            app:showAsAction="withText"/>
+
+        <item
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:id="@+id/only_disabled"
+            android:title="@string/disabled"
+            android:checked="false"
+            app:showAsAction="withText"/>
+    </group>
 </menu>

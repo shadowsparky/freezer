@@ -17,14 +17,21 @@
     <CheckedTextView
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:checked="false"
-        android:gravity="center_vertical"
         android:id="@+id/appInfo"
         android:layout_marginStart="4dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@id/appImage"
         android:text="App Name" />
 
+    <TextView
+        android:id="@+id/appPackage"
+        android:layout_marginStart="4dp"
+        android:text="packageName"
+        android:layout_toEndOf="@id/appImage"
+        android:layout_below="@id/appInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

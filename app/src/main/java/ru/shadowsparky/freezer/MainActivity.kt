@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
     override val coroutineContext = Job() + Dispatchers.IO
     private var adapter: AppsAdapter? = null
     private var originalItems = listOf<AppInfo>()
-    private val TAG = javaClass.simpleName
+    private var filteredItems = listOf<AppInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
         launch(Dispatchers.IO) {
             val apps = AppInfo.getApps(packageManager)
             originalItems = apps
+            filteredItems = apps
             setAdapter(apps)
         }
     }
@@ -48,20 +50,35 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null && adapter != null) {
-            val filteredItems = originalItems.filter { it.name.toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT)) }
-            setAdapter(filteredItems)
-            Log.d(TAG, "$filteredItems $newText")
+            val matchedItems = filteredItems.filter { it.name.toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT)) }
+            setAdapter(matchedItems)
         }
         return true
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean = true
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        onQueryTextChange(query)
+        return true
+    }
+    private var searchView: SearchView? = null
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (menu == null) return false
         menuInflater.inflate(R.menu.menu, menu)
-        val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
-        searchView.setOnQueryTextListener(this)
+        searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
+        searchView?.setOnQueryTextListener(this)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        filteredItems = when (item.itemId) {
+            R.id.all_item -> originalItems
+            R.id.only_enabled -> originalItems.filter { it.isEnabled }
+            R.id.only_disabled -> originalItems.filter { !it.isEnabled }
+            else -> return false
+        }
+        onQueryTextChange(searchView?.query.toString())
+        item.isChecked = true
+        return super.onOptionsItemSelected(item)
     }
 }

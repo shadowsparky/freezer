@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckedTextView
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.CoroutineScope
@@ -36,11 +33,13 @@ class AppsAdapter(
         private val image: ImageView = itemView.findViewById(R.id.appImage)
         private val appInfo: CheckedTextView = itemView.findViewById(R.id.appInfo)
         private val layout: RelativeLayout = itemView.findViewById(R.id.item_layout)
+        private val appPackage: TextView = itemView.findViewById(R.id.appPackage)
 
         fun bind(item: AppInfo, position: Int) {
             image.setImageDrawable(item.drawable)
             appInfo.text = item.name
             appInfo.isChecked = item.isEnabled
+            appPackage.text = item.packageName
             layout.setOnClickListener {
                 if (appInfo.isChecked) {
                     invokeCommand(item, position, R.string.app_disabled, "disable")

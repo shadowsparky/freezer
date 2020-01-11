@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Freezer</string>
+    <string name="app_enabled">Приложение включено</string>
+    <string name="app_disabled">Приложение выключено</string>
+    <string name="search">Поиск</string>
+    <string name="root_not_granted">Вы не выдали ROOT права</string>
+    <string name="unrecognized_error">Произошла неизвестная ошибка</string>
+</resources>

@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
         appsRecycler.layoutManager = LinearLayoutManager(this)
         appsRecycler.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         launch(Dispatchers.IO) {

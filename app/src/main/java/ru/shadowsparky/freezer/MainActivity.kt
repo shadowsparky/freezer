@@ -50,7 +50,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope, SearchView.OnQueryText
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null && adapter != null) {
-            val matchedItems = filteredItems.filter { it.name.toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT)) }
+            val matchedItems = filteredItems.filter {
+                it.name.toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT)) ||
+                        it.packageName.toLowerCase(Locale.ROOT).contains(newText.toLowerCase(Locale.ROOT))
+            }
             setAdapter(matchedItems)
         }
         return true

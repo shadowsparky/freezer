@@ -18,7 +18,7 @@ data class AppInfo(
                 val packageName = it.packageName
                 val name = it.applicationInfo.loadLabel(packageManager).toString()
                 val drawable =
-                    it.applicationInfo.loadUnbadgedIcon(packageManager)//it.applicationInfo.loadLogo(packageManager)
+                    it.applicationInfo.loadUnbadgedIcon(packageManager)
                 val appInfo = AppInfo(isEnabled, packageName, name, drawable)
                 if (packageName != "ru.shadowsparky.freezer" && !packageName.startsWith("com.android"))
                     appInfos.add(appInfo)
